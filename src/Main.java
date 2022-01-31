@@ -1,3 +1,4 @@
+import java.time.Instant;
 import java.util.*;
 
 public class Main {
@@ -14,21 +15,13 @@ public class Main {
                 break;
             }
             String[] splitInput = input.split(" ");
-            Contact contact = new Contact(splitInput[0], splitInput[1]);
+// В такой реализации в принципе необходимость сущности "Контакт" отпадает.
+//            Contact contact = new Contact(splitInput[0], splitInput[1]);
 
-//            System.out.println("Укажите номер группы контакта через пробел:");
-//            pBook.printGroup();
-
-            System.out.println("Укажите группы контакта через пробел:");
-
-            List<String> listInput = new ArrayList<>();
-            input = scanner.nextLine();
-            splitInput = input.split(" ");
-            Collections.addAll(listInput, splitInput);
-
-            pBook.addContactAndGroup(listInput, contact);
+            pBook.addContact(splitInput[0], splitInput[1]);
         }
-        pBook.getAll();
+
+        printBook(pBook);
 
         while(true) {
             System.out.println("Введите номер, с которого будем звонить (себе?), или 'нет' для выхода");
@@ -40,6 +33,18 @@ public class Main {
 
             mCalls.addCall(call, pBook);
         }
-        mCalls.getAll();
+        printMissed(mCalls);
+    }
+
+    public static void printBook(PhoneBook pBook) {
+        for (Map.Entry<String, String> entry : pBook.getAll().entrySet()) {
+            System.out.println(entry.getValue() + ": " + entry.getKey());
+        }
+    }
+
+    public static void printMissed(MissedCalls mCalls) {
+        for (Map.Entry<Instant, String> entry : mCalls.getAll().entrySet()) {
+            System.out.println("В " + entry.getKey() + " пропущенный вызов от " + entry.getValue());
+        }
     }
 }

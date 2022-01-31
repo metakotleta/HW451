@@ -2,7 +2,7 @@ import java.util.Objects;
 
 public class Contact {
     private final String name;
-    private final String  phone;
+    private final String phone;
 
     public Contact(String name, String phone) {
         this.name = name;

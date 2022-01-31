@@ -13,12 +13,10 @@ public class MissedCalls {
     // Или есть более оптимальный способ распасить коллекции в методе mapContacts()?
 
     public void addCall(Call call, PhoneBook pBook) {
-        missedCalls.put(call.getCallTime(), pBook.findPhone(call.getPhoneNumber(), pBook.mapContacts()));
+        missedCalls.put(call.getCallTime(), pBook.findName(call.getPhoneNumber()));
     }
 
-    public void getAll() {
-        for (Map.Entry<Instant, String> entry : missedCalls.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
+    public Map<Instant, String> getAll() {
+        return missedCalls;
     }
 }
